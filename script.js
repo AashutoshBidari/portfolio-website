@@ -1,78 +1,107 @@
-/* ===== EDIT HERE: add your own links. Empty ones are hidden automatically. ===== */
-const LINKS = {
-  email: "",      // e.g. "you@example.com"
-  github: "",     // full URL
-  linkedin: "",   // full URL
-  twitter: "",    // full URL
-  instagram: ""   // full URL
-};
-const PROJECT_LINKS = {
-  "Document Extractor": { "Live site": "", "GitHub": "" },
-  "Student Command Center": { "Live site": "", "GitHub": "" }
-};
-/* ======================================================================== */
+(function(){
+var $=function(s,c){return (c||document).querySelector(s)},$$=function(s,c){return [].slice.call((c||document).querySelectorAll(s))};
+var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
 
-// Theme
-const root = document.documentElement, btn = document.getElementById('theme');
-const dark = () => root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
-const paint = () => btn.textContent = dark() ? '☀' : '☾';
-try { const s = localStorage.getItem('theme'); if (s) root.dataset.theme = s; } catch (e) {}
-paint();
-btn.onclick = () => {
-  root.dataset.theme = dark() ? 'light' : 'dark'; paint();
-  try { localStorage.setItem('theme', root.dataset.theme); } catch (e) {}
-};
-
-// Typing effect
-const words = ['BTech AI student', 'builder in progress', 'curious learner'];
-const t = document.getElementById('typed'); let w = 0, c = 0, del = false;
-(function tick(){
-  const word = words[w];
-  t.textContent = word.slice(0, c);
-  if (!del && c === word.length) { del = true; return setTimeout(tick, 1600); }
-  if (del && c === 0) { del = false; w = (w + 1) % words.length; }
-  c += del ? -1 : 1;
-  setTimeout(tick, del ? 40 : 80);
-})();
-
-// Contact links (only filled ones show)
-const soc = document.getElementById('social');
-Object.entries(LINKS).forEach(([k, v]) => {
-  if (!v) return;
-  const a = document.createElement('a');
-  a.className = 'btn'; a.target = '_blank'; a.rel = 'noopener';
-  a.href = k === 'email' ? 'mailto:' + v : v;
-  a.textContent = k === 'email' ? 'Email' : k[0].toUpperCase() + k.slice(1);
-  soc.appendChild(a);
+/* hero name: letters swell near the cursor */
+var h1=$('#name');
+['Aashutosh','Bidari'].forEach(function(w,i){
+  var line=document.createElement('span');line.className=i?'l2':'';line.style.display='block';line.setAttribute('aria-hidden','true');
+  w.split('').forEach(function(ch){var s=document.createElement('span');s.textContent=ch;line.appendChild(s)});
+  h1.appendChild(line);
 });
-if (!soc.children.length) {
-  document.getElementById('contact').style.display = 'none';
-  document.getElementById('navc').style.display = 'none';
+var letters=$$('#name span span');
+var colors=['--coral','--sun','--mint','--sky','--violet'];
+function swell(x,y){
+  letters.forEach(function(el){
+    var r=el.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2;
+    var d=Math.hypot(x-cx,y-cy),t=Math.max(0,1-d/260);
+    el.style.fontVariationSettings="'wght' "+Math.round(300+t*500);
+    el.style.color=t>.15?'var('+colors[Math.floor(cy+cx)%5<0?0:letters.indexOf(el)%5]+')':'';
+  });
 }
+/* idle wave so touch users see it too */
+var t0=0;
+function wave(ts){
+  if(!reduce&&!pointerActive){
+    var W=innerWidth,H=innerHeight;
+    swell((Math.sin(ts/1400)*.5+.5)*W,H*.35);
+  }
+  requestAnimationFrame(wave);
+}
+var pointerActive=false;
+requestAnimationFrame(wave);
 
-// Project links
-document.querySelectorAll('.card').forEach(card => {
-  const name = card.querySelector('h3').textContent, box = card.querySelector('.proj-links');
-  Object.entries(PROJECT_LINKS[name] || {}).forEach(([label, url]) => {
-    if (!url) return;
-    const a = document.createElement('a');
-    a.className = 'l'; a.href = url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = label + ' ↗';
-    box.appendChild(a);
-  });
+/* cursor + shapes parallax */
+var cur=$('#cur'),shapes=$$('.shape');
+addEventListener('pointermove',function(e){
+  cur.style.transform='translate('+(e.clientX-cur.offsetWidth/2)+'px,'+(e.clientY-cur.offsetHeight/2)+'px)';
+  if(e.pointerType==='mouse'&&scrollY<innerHeight){
+    pointerActive=true;swell(e.clientX,e.clientY);
+    var nx=e.clientX/innerWidth-.5,ny=e.clientY/innerHeight-.5;
+    shapes.forEach(function(s){var d=+s.dataset.d;s.style.transform='translate('+nx*d*2+'px,'+ny*d*2+'px)'});
+  } else pointerActive=false;
+});
+$$('a,button').forEach(function(a){
+  a.addEventListener('pointerenter',function(){cur.classList.add('big')});
+  a.addEventListener('pointerleave',function(){cur.classList.remove('big')});
 });
 
-// Scroll reveal
-const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .15 });
-document.querySelectorAll('.rv').forEach(el => io.observe(el));
-
-// Cursor glow + card tilt
-const g = document.getElementById('glow');
-addEventListener('pointermove', e => { g.style.left = e.clientX + 'px'; g.style.top = e.clientY + 'px'; });
-document.querySelectorAll('.card').forEach(c => {
-  c.addEventListener('pointermove', e => {
-    const r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
-    c.style.transform = `perspective(700px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) translateY(-4px)`;
+/* magnetic buttons */
+$$('.mag').forEach(function(b){
+  b.addEventListener('pointermove',function(e){
+    var r=b.getBoundingClientRect();
+    b.style.transform='translate('+(e.clientX-r.left-r.width/2)*.35+'px,'+(e.clientY-r.top-r.height/2)*.5+'px)';
   });
-  c.addEventListener('pointerleave', () => c.style.transform = '');
+  b.addEventListener('pointerleave',function(){b.style.transform=''});
 });
-document.getElementById('yr').textContent = new Date().getFullYear();
+
+/* about: words light up on scroll */
+var rv=$('#reveal'),words=[];
+rv.dataset.text.split(' ').forEach(function(w,i){
+  var s=document.createElement('span');s.className='w';s.textContent=w+' ';
+  if(/B\.Tech|Artificial|Intelligence|Nepal|apps/.test(w))s.classList.add('hl');
+  rv.appendChild(s);words.push(s);
+});
+var about=$('#about');
+
+/* skills */
+var skills=['Python','Machine Learning','Vibe Coding','Prompt Design','HTML & CSS','JavaScript','Git & GitHub','Data Handling','Problem Solving'];
+$$('.row').forEach(function(row){
+  for(var k=0;k<3;k++)skills.forEach(function(s){var c=document.createElement('span');c.className='chip';c.textContent=s;row.appendChild(c)});
+});
+var rows=$$('.row'),sk=$('.skills'),lastY=scrollY,vel=0,off=[0,0];
+
+/* work: horizontal scroll */
+var work=$('#work'),track=$('#track');
+function sizeWork(){work.style.height=(track.scrollWidth-innerWidth+innerHeight*1.1)+'px'}
+sizeWork();addEventListener('resize',sizeWork);addEventListener('load',sizeWork);
+
+var bg=[['#top','#FBF9FF'],['#about','#FFF3D6'],['#work','#E6F8F3'],['.skills','#F0EBFF']];
+function frame(){
+  var y=scrollY,max=document.documentElement.scrollHeight-innerHeight;
+  $('#bar').style.transform='scaleX('+(max>0?y/max:0)+')';
+  /* about */
+  var ar=about.getBoundingClientRect(),p=Math.min(1,Math.max(0,-ar.top/(ar.height-innerHeight)));
+  var n=Math.round(p*1.15*words.length);
+  words.forEach(function(w,i){w.classList.toggle('on',reduce||i<n)});
+  /* work */
+  var wr=work.getBoundingClientRect(),wp=Math.min(1,Math.max(0,-wr.top/(wr.height-innerHeight)));
+  track.style.transform='translateX('+(-wp*(track.scrollWidth-innerWidth))+'px)';
+  /* skills marquee driven by scroll */
+  vel+=(Math.abs(y-lastY)-vel)*.1;lastY=y;
+  rows.forEach(function(r,i){
+    off[i]+=(+r.dataset.s)*(0.6+vel*.5);
+    var w=r.scrollWidth/3;if(off[i]>w)off[i]-=w;if(off[i]<-w)off[i]+=w;
+    r.style.transform='translateX('+(-w+off[i])+'px) skewX('+(-Math.min(vel,20)*(+r.dataset.s)*.5)+'deg)';
+  });
+  /* background color mood */
+  if(!reduce){
+    var mid=innerHeight*.5,col=bg[0][1];
+    bg.forEach(function(b){var e=$(b[0]);if(e&&e.getBoundingClientRect().top<mid)col=b[1]});
+    if(!matchMedia('(prefers-color-scheme:dark)').matches)document.body.style.background=col;
+  }
+  requestAnimationFrame(frame);
+}
+if(reduce){words.forEach(function(w){w.classList.add('on')})}
+requestAnimationFrame(frame);
+})();

@@ -1,69 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Aashutosh Bidari</title>
-  <meta name="description" content="Aashutosh Bidari: BTech AI student in Nepal.">
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500&display=swap">
-  <link rel="stylesheet" href="style.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aashutosh Bidari – Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-  <div id="glow"></div>
-  <nav>
-    <a class="logo" href="#top">Aashutosh<span>.</span></a>
-    <div class="links">
-      <a href="#about">About</a><a href="#projects">Projects</a><a href="#contact" id="navc">Contact</a>
-      <button id="theme" aria-label="Toggle theme">☾</button>
+<div id="bar"></div><div id="cur"></div>
+<nav><a href="#top">Home</a><a href="#about">About</a><a href="#work">Work</a><a href="#contact">Contact</a></nav>
+
+<header class="hero" id="top">
+  <i class="shape s1" data-d="40"></i><i class="shape s2" data-d="-30"></i><i class="shape s3" data-d="25"></i><i class="shape s4" data-d="-50"></i><i class="shape s5" data-d="60"></i>
+  <h1 id="name" aria-label="Aashutosh Bidari"></h1>
+  <p>AI student from Nepal who builds things for fun.</p>
+  <div class="hint">scroll ↓</div>
+</header>
+
+<section class="about" id="about">
+  <div class="pin">
+    <div class="reveal" id="reveal" data-text="I'm a B.Tech student in Artificial Intelligence based in Nepal. I like turning ideas into working apps, and I'm learning something new with every build."></div>
+    <p class="tag">Currently building tools for students and for people who work with documents.</p>
+  </div>
+</section>
+
+<section class="work" id="work">
+  <div class="stick">
+    <h2>Things I'm making</h2>
+    <div class="track" id="track">
+      <article class="card c1"><span class="badge">In development</span><div><h3>Student Command Center</h3><p>One place for a student to track classes, tasks and deadlines.</p></div><a href="https://github.com/yourusername/student-command-center">View on GitHub</a><i class="blob"></i></article>
+      <article class="card c2"><span class="badge">In development</span><div><h3>Document Extractor</h3><p>Pulls the useful information out of documents so you don't have to.</p></div><a href="https://github.com/yourusername/document-extractor">View on GitHub</a><i class="blob"></i></article>
+      <article class="card c3"><span class="badge">4 apps built</span><div><h3>Vibe-coded Apps</h3><p>Four small apps built by describing ideas to AI. Not deployed yet.</p></div><a href="https://github.com/yourusername">See my GitHub</a><i class="blob"></i></article>
+      <article class="card c4"><span class="badge">Next</span><div><h3>Your project here</h3><p>Replace this card with the next thing you ship.</p></div><a href="#contact">Say hi</a><i class="blob"></i></article>
     </div>
-  </nav>
-  <main id="top">
-    <section class="hero">
-      <div class="eyebrow">BTech · Artificial Intelligence · Nepal</div>
-      <h1>Hi, I’m <em>Aashutosh</em> Bidari.</h1>
-      <div class="role">I’m a <b id="typed"></b></div>
-      <div class="cta"><a class="btn p" href="#projects">See my projects</a><a class="btn" href="#about">About me</a>
-      </div>
-    </section>
+  </div>
+</section>
 
-    <section id="about" class="about rv">
-      <h2 data-n="01 — ABOUT">A student, building and learning.</h2>
-      <p>I’m a student pursuing a BTech in Artificial Intelligence in Nepal. I’m currently working on my first projects
-        and learning by building them.</p>
-      <div class="facts"><span class="chip">🎓 BTech in AI</span><span class="chip">📍 Nepal</span><span class="chip">🛠
-          Building projects</span></div>
-    </section>
+<section class="skills" aria-label="Skills">
+  <div class="row" data-s="1"></div>
+  <div class="row" data-s="-1"></div>
+</section>
 
-    <section id="projects">
-      <h2 class="rv" data-n="02 — PROJECTS">Things I’m making.</h2>
-      <div class="grid">
-        <article class="card rv">
-          <span class="tag">Not launched yet</span>
-          <h3>Document Extractor</h3>
-          <p>A document extraction project. Not launched yet.</p>
-          <div class="proj-links" data-links='[]'></div>
-        </article>
-        <article class="card rv">
-          <span class="tag"><i></i>Under construction</span>
-          <h3>Student Command Center</h3>
-          <p>A project for students, currently being built.</p>
-          <div class="proj-links" data-links='[]'></div>
-        </article>
-      </div>
-    </section>
+<section class="contact" id="contact">
+  <h2>Let's build something.</h2>
+  <a class="mail" href="mailto:you@example.com">you@example.com</a>
+  <div class="links">
+    <a class="mag m1" href="https://github.com/yourusername">GitHub</a>
+    <a class="mag m2" href="https://linkedin.com/in/yourusername">LinkedIn</a>
+    <a class="mag m3" href="https://instagram.com/yourusername">Instagram</a>
+    <a class="mag m4" href="https://x.com/yourusername">X</a>
+    <a class="mag m5" href="https://facebook.com/yourusername">Facebook</a>
+  </div>
+  <footer>© 2026 Aashutosh Bidari · Kathmandu, Nepal</footer>
+</section>
 
-    <section id="contact" class="rv">
-      <h2 data-n="03 — CONTACT">Let’s connect.</h2>
-      <p>Want to say hello or talk about a project? Reach out.</p>
-      <div class="social" id="social"></div>
-    </section>
-  </main>
-  <footer>© <span id="yr"></span> Aashutosh Bidari</footer>
-
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
-
 </html>
