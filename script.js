@@ -105,3 +105,20 @@ function frame(){
 if(reduce){words.forEach(function(w){w.classList.add('on')})}
 requestAnimationFrame(frame);
 })();
+
+/* loading screen: waits for font + page, then slides away */
+(function(){
+  var L=document.getElementById('loader');if(!L)return;
+  var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches,done=false;
+  document.documentElement.classList.add('loading');
+  function finish(){
+    if(done)return;done=true;
+    L.classList.add('out');document.documentElement.classList.remove('loading');
+    setTimeout(function(){L.remove()},1200);
+  }
+  var font=(document.fonts&&document.fonts.load)?Promise.race([document.fonts.load('700 100px Kalam','\u0928\u092E\u0938\u094D\u0924\u0947'),new Promise(function(r){setTimeout(r,2500)})]):Promise.resolve();
+  var page=new Promise(function(r){if(document.readyState==='complete')r();else addEventListener('load',r)});
+  var anim=font.then(function(){L.classList.add('go');return new Promise(function(r){setTimeout(r,reduce?400:4000)})});
+  Promise.all([anim,page]).then(finish);
+  setTimeout(finish,9000);
+})();

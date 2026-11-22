@@ -71,3 +71,18 @@ nav a:hover{background:var(--ink);color:var(--bg)}
 footer{font-size:.85rem;opacity:.6}
 @media (max-width:640px){nav a{padding:8px 10px;font-size:.8rem}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+
+/* loading screen */
+html.loading,html.loading body{overflow:hidden}
+#loader{position:fixed;inset:0;z-index:100;background:var(--bg);display:grid;place-content:center;transition:transform .9s cubic-bezier(.77,0,.18,1),border-radius .9s}
+#loader.out{transform:translateY(-100%);border-radius:0 0 50% 50%/0 0 14vh 14vh}
+#loader svg{width:min(88vw,660px);height:auto;overflow:visible;clip-path:inset(-15% 100% -15% 0)}
+#loader.go svg{animation:wipe 3s cubic-bezier(.45,.05,.35,1) forwards}
+@keyframes wipe{to{clip-path:inset(-15% -5% -15% 0)}}
+#loader text{font-family:Kalam,'Noto Sans Devanagari',sans-serif;font-weight:700;font-size:150px;fill:var(--ink);fill-opacity:0;stroke:var(--ink);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1400;stroke-dashoffset:1400}
+#loader.go text{animation:draw 2.8s ease-in-out forwards,fillin .8s 2.4s ease forwards}
+#loader .under{stroke-dasharray:1;stroke-dashoffset:1}
+#loader.go .under{animation:draw .7s 2.9s ease-out forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+@keyframes fillin{to{fill-opacity:1;stroke-width:0}}
+@media (prefers-reduced-motion:reduce){#loader svg{clip-path:none}#loader text{fill-opacity:1;stroke-width:0;stroke-dashoffset:0}#loader .under{stroke-dashoffset:0}}
