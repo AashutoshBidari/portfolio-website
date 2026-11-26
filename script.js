@@ -56,7 +56,7 @@ $$('.mag').forEach(function(b){
 });
 
 /* about: words light up on scroll */
-var rv=$('#reveal'),words=[];
+var rv=$('#reveal'),words=[];rv.textContent='';
 rv.dataset.text.split(' ').forEach(function(w,i){
   var s=document.createElement('span');s.className='w';s.textContent=w+' ';
   if(/B\.Tech|Artificial|Intelligence|Nepal|apps/.test(w))s.classList.add('hl');
@@ -65,7 +65,7 @@ rv.dataset.text.split(' ').forEach(function(w,i){
 var about=$('#about');
 
 /* skills */
-var skills=['Python','Machine Learning','Vibe Coding','Prompt Design','HTML & CSS','JavaScript','Git & GitHub','Data Handling','Problem Solving'];
+var skills=['Python','Vibe Coding','Prompt Design','Git & GitHub','Problem Solving','Website Design','Landing Pages'];
 $$('.row').forEach(function(row){
   for(var k=0;k<3;k++)skills.forEach(function(s){var c=document.createElement('span');c.className='chip';c.textContent=s;row.appendChild(c)});
 });

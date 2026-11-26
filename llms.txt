@@ -1,0 +1,17 @@
+# Aashutosh Bidari
+
+> Aashutosh Bidari is a B.Tech Artificial Intelligence student in Nepal who builds apps and AI-assisted tools.
+
+## About
+- Role: Student (B.Tech, Artificial Intelligence), Nepal
+- Website: https://aashutoshbidari.com.np/
+- GitHub: https://github.com/AashutoshBidari
+- LinkedIn: https://www.linkedin.com/in/aashutosh-bidari-17297b312/
+
+## Projects
+- Student Command Center (in development): a single place for students to track classes, tasks and deadlines.
+- Document Extractor (in development): pulls useful information out of documents.
+- Vibe-coded apps: four small apps built with AI assistance, not yet deployed.
+
+## Contact
+- Email: bidariaashutosh1@gmail.com
